@@ -50,6 +50,10 @@ while hidden != word
     end
     puts hidden
 
+    if hidden == word
+      return puts "'#{hidden}' is correct! You win"
+    end
+
     i = 0
     print "You have #{chances} chances left: "
     guess = gets.chomp.downcase
