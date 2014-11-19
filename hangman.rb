@@ -25,7 +25,7 @@ chances = 8
 puts "Guess a letter, or the whole word. If you guess the whole word and are wrong, you lose."
 guess = gets.chomp.downcase
 
-while hidden != word && chances >= 0
+while hidden != word
   if guess == word || hidden == word
     return puts "'#{word}' is correct! You win"
   elsif guess.length > 1 && guess != word
@@ -44,6 +44,9 @@ while hidden != word && chances >= 0
     else
       unchanged = ''
       unchanged << hidden
+    end
+    if chances < 1
+      return puts "You lose."
     end
     puts hidden
 
