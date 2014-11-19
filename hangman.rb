@@ -14,30 +14,38 @@ word.length.times do |l|
   l = '_'
   hidden << l
 end
+
 length = (word.length - 1)
 i = 0
+chances = 8
+
 puts "Guess a letter, or the whole word. If you guess the whole word and are wrong, you lose."
 guess = gets.chomp.downcase
-while hidden != word
-  guess
+
+while hidden != word && chances >= 0
   if guess == word || hidden == word
-    print "#{word} is correct! You win"
+    break
+    return "'#{word}' is correct! You win"
   elsif guess.length > 1 && guess != word
-    return "You lose."
+    return puts "You lose."
   else
+    unchanged = hidden
     until i > length
       if word[i].include?(guess)
         hidden[i] = guess
       end
       i += 1
-      print hidden
-      guess = gets.chomp.downcase
     end
-    # i = 0
+    puts unchanged
+    puts hidden
+    if unchanged == hidden
+      chances -= 1
+    end
+    i = 0
+    print "You have #{chances} chances left: "
+    guess = gets.chomp.downcase
   end
 end
-
-
 
 # word = word.downcase.split(//)
 # show = []
