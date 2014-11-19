@@ -10,10 +10,13 @@ puts "Welcome to Hangman!\n"
 bank = ['something', 'goes', 'here']
 word = bank.sample.downcase
 hidden = ''
+unchanged = ''
 word.length.times do |l|
   l = '_'
   hidden << l
 end
+unchanged << hidden
+
 
 length = (word.length - 1)
 i = 0
@@ -24,23 +27,26 @@ guess = gets.chomp.downcase
 
 while hidden != word && chances >= 0
   if guess == word || hidden == word
-    break
-    return "'#{word}' is correct! You win"
+    return puts "'#{word}' is correct! You win"
   elsif guess.length > 1 && guess != word
     return puts "You lose."
   else
-    unchanged = hidden
     until i > length
       if word[i].include?(guess)
         hidden[i] = guess
       end
       i += 1
     end
-    puts unchanged
-    puts hidden
     if unchanged == hidden
       chances -= 1
+      unchanged = ''
+      unchanged << hidden
+    else
+      unchanged = ''
+      unchanged << hidden
     end
+    puts hidden
+
     i = 0
     print "You have #{chances} chances left: "
     guess = gets.chomp.downcase
