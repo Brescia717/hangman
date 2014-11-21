@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-require 'pry'
-puts "Welcome to Hangman!\n"
 
 # Choose a word from word bank at random.
 # Set chances to 8.
@@ -9,6 +7,7 @@ puts "Welcome to Hangman!\n"
 
 bank = ['something', 'goes', 'here']
 word = bank.sample.downcase
+
 hidden = ''
 unchanged = ''
 word.length.times do |l|
@@ -17,19 +16,25 @@ word.length.times do |l|
 end
 unchanged << hidden
 
-
 length = (word.length - 1)
 i = 0
 chances = 8
 
+puts "Welcome to Hangman!\n\n"
 puts "Guess a letter, or the whole word. If you guess the whole word and are wrong, you lose."
+puts "Word: \"#{hidden}\""
+print "> "
 guess = gets.chomp.downcase
 
 while hidden != word
   if guess == word || hidden == word
-    return puts "'#{word}' is correct! You win"
+    puts "\"#{word}\" is correct! You win"
+    break
   elsif guess.length > 1 && guess != word
-    return puts "You lose."
+    puts "You lose."
+    break
+  elsif guess == ""
+    chances -= 1
   else
     until i > length
       if word[i].include?(guess)
@@ -46,12 +51,14 @@ while hidden != word
       unchanged << hidden
     end
     if chances < 1
-      return puts "You lose."
+      puts "You lose."
+      break
     end
-    puts hidden
+    puts "Word: #{hidden}"
 
     if hidden == word
-      return puts "'#{hidden}' is correct! You win"
+      puts "\"#{hidden}\" is correct! You win"
+      break
     end
 
     i = 0
@@ -59,49 +66,3 @@ while hidden != word
     guess = gets.chomp.downcase
   end
 end
-
-# word = word.downcase.split(//)
-# show = []
-
-# word.each do |l|
-#   if l != nil
-#     show << "_"
-#   end
-# end
-
-# hash = Hash[word.zip(show)] # "w" => "_"...
-# # guess = []
-# i = 8
-
-# while (i >= 0)
-#   input = gets.downcase.chomp
-#   hash.each do |k, v|
-#     if input == k
-#       hash[k] = (v = input)
-#       print v
-#       input = gets.downcase.chomp
-#     else
-#       puts "Sorry, that letter is not in the word. Please try again."
-#       i -= 1
-#       print "You have #{i} chances left: "
-#       input = gets.downcase.chomp
-#     end
-
-#     if i < 0
-#       return "He's dead....you killed him...."
-#     end
-#   end
-# end
-
-
-# # input = gets.chomp.downcase
-# # if word.include?(input)
-# #   puts show.gsub()
-
-# if input == word.join('')
-#   return "You Win!"
-# end
-
-
-
-# # puts "Word: #{}"
